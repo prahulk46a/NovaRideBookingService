@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: NovaRideBookingService
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/nova_local_db
+    username: root
+    password: ${MYSQL_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+  show-sql: true
+  hibernate:
+    ddl-auto: validate
+
+server:
+  port: 7475
