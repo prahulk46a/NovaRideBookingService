@@ -1,3 +1,5 @@
+server:
+  port: 7475
 spring:
   application:
     name: NovaRideBookingService
@@ -12,5 +14,15 @@ spring:
   hibernate:
     ddl-auto: validate
 
-server:
-  port: 7475
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+  instance:
+          preferIpAddress: true
+
+
+
+
