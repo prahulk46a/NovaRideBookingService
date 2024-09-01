@@ -2,14 +2,12 @@ package org.novaride.novaridebookingservice.controllers;
 
 import org.novaride.novaridebookingservice.dto.CreateBookingRequestDto;
 import org.novaride.novaridebookingservice.dto.CreateBookingResponseDto;
+import org.novaride.novaridebookingservice.dto.UpdateDriverRequestDto;
+import org.novaride.novaridebookingservice.dto.UpdateDriverResponseDto;
 import org.novaride.novaridebookingservice.service.BookingService;
-import org.novaride.novaridebookingservice.service.BookingServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/booking")
@@ -21,5 +19,10 @@ public class BookingController {
     @PostMapping
     public ResponseEntity<CreateBookingResponseDto> createBooking(@RequestBody CreateBookingRequestDto createBookingRequestDto) {
         return new ResponseEntity<>(bookingService.createBooking(createBookingRequestDto), HttpStatus.CREATED);
-     }
+    }
+
+    @PatchMapping("/{bookingId}")
+    public  ResponseEntity<UpdateDriverResponseDto>updateReview(@RequestBody UpdateDriverRequestDto updateDriverRequestDto, @PathVariable Long bookingId ){
+        return new ResponseEntity<UpdateDriverResponseDto>(bookingService.updateDriver(updateDriverRequestDto, bookingId), HttpStatus.OK);
+    }
 }

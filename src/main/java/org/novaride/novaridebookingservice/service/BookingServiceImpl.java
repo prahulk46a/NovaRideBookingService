@@ -5,13 +5,10 @@ import org.novaride.modelentity.models.BookingStatus;
 import org.novaride.modelentity.models.Driver;
 import org.novaride.modelentity.models.Passenger;
 import org.novaride.novaridebookingservice.api.LocationServiceApi;
-import org.novaride.novaridebookingservice.dto.CreateBookingRequestDto;
-import org.novaride.novaridebookingservice.dto.CreateBookingResponseDto;
-import org.novaride.novaridebookingservice.dto.DriverLocationDto;
-import org.novaride.novaridebookingservice.dto.NearByDriverRequestDto;
+import org.novaride.novaridebookingservice.dto.*;
 import org.novaride.novaridebookingservice.repository.BookingRepository;
 import org.novaride.novaridebookingservice.repository.PassengerRepository;
-import org.springframework.http.ResponseEntity;
+import org.novaride.novaridebookingservice.repository.DriverRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import retrofit2.Call;
@@ -24,6 +21,7 @@ import java.util.Optional;
 
 @Service
 public class BookingServiceImpl implements BookingService {
+    private final DriverRepository driverRepository;
     PassengerRepository passengerRepository;
     BookingRepository bookingRepository;
     private final RestTemplate restTemplate;
@@ -34,11 +32,12 @@ public class BookingServiceImpl implements BookingService {
     //private static final String LOCATION_SERVICE="http://localhost:7477";
 
 
-    public BookingServiceImpl(PassengerRepository passengerRepository, BookingRepository bookingRepository, LocationServiceApi locationServiceApi) {
+    public BookingServiceImpl(PassengerRepository passengerRepository, BookingRepository bookingRepository, LocationServiceApi locationServiceApi, DriverRepository driverRepository) {
         this.passengerRepository = passengerRepository;
         this.bookingRepository = bookingRepository;
         this.restTemplate = new RestTemplate();
         this.locationServiceApi = locationServiceApi;
+        this.driverRepository = driverRepository;
     }
 
 
@@ -78,6 +77,21 @@ public class BookingServiceImpl implements BookingService {
 
 
 
+    }
+
+    @Override
+    public UpdateDriverResponseDto updateDriver(UpdateDriverRequestDto updateDriverRequestDto,Long bookingId) {
+        System.out.println(updateDriverRequestDto.getDriverId().get());
+        Optional<Driver> driver = driverRepository.findById(updateDriverRequestDto.getDriverId().get());
+        System.out.println(driver.isPresent());
+        bookingRepository.updateBookingStatusAndDriverById(bookingId, BookingStatus.SCHEDULED,driver.get());
+        Optional<Booking>booking= bookingRepository.findById(bookingId);
+
+        return UpdateDriverResponseDto.builder()
+                .bookingId(bookingId)
+                .driver(Optional.ofNullable(booking.get().getDriver()))
+                .status(booking.get().getBookingStatus())
+                .build();
     }
 
     private void processNearbyDriversAsync(NearByDriverRequestDto requestDto) {
