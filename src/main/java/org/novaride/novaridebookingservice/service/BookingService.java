@@ -1,13 +1,12 @@
 package org.novaride.novaridebookingservice.service;
 
-import org.novaride.modelentity.models.Booking;
 import org.novaride.novaridebookingservice.dto.CreateBookingRequestDto;
 import org.novaride.novaridebookingservice.dto.CreateBookingResponseDto;
-import org.novaride.novaridebookingservice.dto.UpdateDriverRequestDto;
-import org.novaride.novaridebookingservice.dto.UpdateDriverResponseDto;
+import org.novaride.novaridebookingservice.dto.UpdateBookingRequestDto;
+import org.novaride.novaridebookingservice.dto.UpdateBookingResponseDto;
 
 public interface BookingService {
     public CreateBookingResponseDto createBooking(CreateBookingRequestDto booking);
 
-    public UpdateDriverResponseDto updateDriver(UpdateDriverRequestDto updateDriverRequestDto,Long bookingId);
+    public UpdateBookingResponseDto updateDriver(UpdateBookingRequestDto updateBookingRequestDto, Long bookingId);
 }

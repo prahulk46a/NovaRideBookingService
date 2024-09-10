@@ -3,6 +3,7 @@ package org.novaride.novaridebookingservice.controllers;
 import com.netflix.discovery.EurekaClient;
 import okhttp3.OkHttpClient;
 import org.novaride.novaridebookingservice.api.LocationServiceApi;
+import org.novaride.novaridebookingservice.api.SocketApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +27,16 @@ public class RetrofitConfig {
                 .client(new OkHttpClient.Builder().build())
                 .build()
                 .create(LocationServiceApi.class);
+    }
+
+    @Bean
+    public SocketApi socketApi() {
+        return new Retrofit.Builder()
+                .baseUrl(getServiceUrl("NOVARIDESOCKETSERVICE"))
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(new OkHttpClient.Builder().build())
+                .build()
+                .create(SocketApi.class);
     }
 
 }

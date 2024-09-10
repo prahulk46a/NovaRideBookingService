@@ -35,7 +35,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    implementation('org.NovaRide:ModelEntity:0.0.9-SNAPSHOT')
+    implementation('org.NovaRide:ModelEntity:0.0.11-SNAPSHOT')
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:4.1.3'

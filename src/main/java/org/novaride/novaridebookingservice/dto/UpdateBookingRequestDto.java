@@ -9,7 +9,8 @@ import java.util.Optional;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UpdateDriverRequestDto {
+public class UpdateBookingRequestDto {
+
     private String status;
     private Optional<Long> driverId;
 }

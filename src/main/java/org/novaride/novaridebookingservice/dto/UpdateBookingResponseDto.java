@@ -11,7 +11,7 @@ import java.util.Optional;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UpdateDriverResponseDto {
+public class UpdateBookingResponseDto {
     private Long bookingId;
     private BookingStatus status;
     private Optional<Driver> driver;
